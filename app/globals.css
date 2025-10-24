@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{ --brand-shadow: 0 10px 30px rgba(165,182,156,.25); }
+
+/* White canvas + darker text */
+html, body { @apply bg-white text-softbrown; scroll-behavior:smooth; }
+
+.btn { @apply inline-flex items-center justify-center rounded-md px-5 py-3 text-base font-medium transition; }
+.btn-primary { @apply bg-sage text-white hover:opacity-90 shadow; }
+.btn-secondary { @apply bg-mist text-softbrown hover:opacity-90; }
+
+/* Solid cards */
+.card { @apply bg-white rounded-xl border border-sage/30 shadow-sm p-6; }
+/* hover styling is applied via the .card-hover class on elements */
+.section { @apply py-20; }
+.h1 { @apply font-display font-semibold text-4xl md:text-6xl leading-tight text-softbrown; }
+.h2 { @apply font-display font-semibold text-3xl md:text-4xl text-softbrown; }
+.p-lead { @apply text-lg md:text-xl text-softbrown; }
+.prose p { @apply my-4 leading-relaxed; }
+
+/* Marquee animation (no styled-jsx) */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { width: 200%; animation: marquee 24s linear infinite; }
+.opacity-85 { opacity: .85; }
+
+/* Soft shadow + lift */
+.soft-shadow { box-shadow: 0 10px 30px rgba(165,182,156,.18); }
+.card-hover {
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 14px 36px rgba(165,182,156,.22);
+}
+
+/* Button hover zoom (subtle) */
+.btn { transition: transform .18s ease, opacity .18s ease; }
+.btn:hover { transform: translateY(-1px); }
+
+/* Respect reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  .card-hover, .btn { transition: none; }
+}
