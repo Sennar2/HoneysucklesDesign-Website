@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
+type Params = { slug: string };
+
 export default async function CaseStudyPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<Params>;
 }) {
-  const slug = params.slug;
+  const { slug } = await params;
 
   const cs = await prisma.caseStudy.findUnique({
     where: { slug },
@@ -33,7 +35,9 @@ export default async function CaseStudyPage({
       </div>
 
       <h1 className="mt-6 font-display text-4xl text-charcoal">{cs.title}</h1>
-      {cs.summary ? <p className="mt-4 text-lg opacity-80">{cs.summary}</p> : null}
+      {cs.summary ? (
+        <p className="mt-4 text-lg opacity-80">{cs.summary}</p>
+      ) : null}
 
       {Array.isArray(cs.results) && cs.results.length > 0 && (
         <div className="mt-10">
